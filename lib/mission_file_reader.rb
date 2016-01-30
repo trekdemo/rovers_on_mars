@@ -1,3 +1,5 @@
+require 'position'
+
 class MissionFileReader
   attr_reader :path
 
@@ -9,7 +11,7 @@ class MissionFileReader
     line_seq.drop(1).each_slice(2).map do |(position, instructions)|
       x, y, orientation = position.split(' ')
 
-      [[x.to_i, y.to_i, orientation], instructions]
+      [Position(x.to_i, y.to_i, orientation), instructions]
     end
   end
 
@@ -17,7 +19,7 @@ class MissionFileReader
 
   def line_seq
     File.new(path)
-      .map(&:strip)      # Clear the input data
+      .map(&:strip)      # Clear the input lines
       .reject(&:empty?)  # Skip empty lines
   end
 end

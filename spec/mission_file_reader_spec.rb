@@ -7,8 +7,8 @@ RSpec.describe MissionFileReader do
   describe '#rover_data' do
     it 'should parse the rover data from the file' do
       expect(subject.rover_data).to eq([
-        [[1,2,'N'], "LMLMLMLMM"],
-        [[3,3,'E'], "MMRMMRMRRM"],
+        [Position(1,2,'N'), "LMLMLMLMM"],
+        [Position(3,3,'E'), "MMRMMRMRRM"],
       ])
     end
   end

@@ -19,7 +19,7 @@ class MissionSimulator
 
   def format_output(positions)
     positions
-      .map { |pos| pos.join(' ') << "\n" }
+      .map { |pos| pos.to_a.join(' ') << "\n" }
       .join("\n")
   end
 end
