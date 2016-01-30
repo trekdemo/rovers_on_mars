@@ -15,6 +15,10 @@ class MissionFileReader
     end
   end
 
+  def plateau_size
+    line_seq.first.split(' ').map(&:to_i)
+  end
+
   private
 
   def line_seq

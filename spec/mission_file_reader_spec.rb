@@ -12,5 +12,11 @@ RSpec.describe MissionFileReader do
       ])
     end
   end
+
+  describe '#plateau_size' do
+    it 'returns the size of the plateau' do
+      expect(subject.plateau_size).to eq([5, 5])
+    end
+  end
 end
 

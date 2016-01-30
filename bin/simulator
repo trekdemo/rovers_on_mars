@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift(File.expand_path('../../lib', __FILE__))
+require 'bundler/setup'
+require 'mission_simulator'
+
+class Plateau
+  def initialize(size)
+    @size = size
+  end
+
+  def draw(pos)
+    puts '+' + '-' * @size.first + '+'
+    puts Array.new(@size.last) { |y|
+      '|' + Array.new(@size.first) { |x|
+        pos.coords == [x, y] ? pos.orientation : ' '
+      }.join('') + '|'
+    }.join("\n")
+    puts '+' + '-' * @size.first + '+'
+  end
+end
+
+class CLISimulator
+  def run(path)
+    mission_sim = MissionSimulator.new(path)
+    plateau = Plateau.new(mission_sim.plateau_size)
+
+    mission_sim.rovers.each do |rover|
+      rover.waypoints.each do |position|
+        system('clear')
+        plateau.draw(position)
+        sleep(0.4)
+      end
+    end
+  end
+end
+
+if $0 == __FILE__
+  CLISimulator.new.run(ARGV[0] || "./spec/fixtures/mission01.txt")
+end
