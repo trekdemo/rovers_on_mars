@@ -5,13 +5,21 @@ class Rover
 
   def initialize(pos, instructions)
     @position = Position(pos)
-    @instructions = instructions
+    @instructions = instructions.to_s.upcase
+
+    unless instructions.match(/[LRM]*/)
+      fail ArgumentError, "Invalid instructions: #{instructions}"
+    end
+  end
+
+  def waypoints
+    instructions.chars.reduce([position]) do |points, instruction|
+      points.concat([evaluate_instruction(points.last, instruction)])
+    end
   end
 
   def evaluate_destination
-    instructions.chars.reduce(position) do |cur_pos, instruction|
-      evaluate_instruction(cur_pos, instruction)
-    end
+    waypoints.last
   end
 
   private
