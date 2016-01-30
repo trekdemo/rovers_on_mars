@@ -15,9 +15,9 @@ RSpec.describe MissionSimulator do
     specify { expect(subject.rovers.count).to eq(2) }
   end
 
-  describe '#evaluate_destinations' do
+  describe '#report_destinations' do
     it 'should return expected formatted output' do
-      expect(subject.evaluate_destinations).to eq(mission_expectation)
+      expect(subject.report_destinations).to eq(mission_expectation)
     end
   end
 end

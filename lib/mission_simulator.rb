@@ -12,7 +12,11 @@ class MissionSimulator
   end
 
   def evaluate_destinations
-    format_output(rovers.map(&:evaluate_destination))
+    rovers.map(&:evaluate_destination)
+  end
+
+  def report_destinations
+    format_output(evaluate_destinations)
   end
 
   private
