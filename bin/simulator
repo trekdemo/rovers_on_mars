@@ -12,7 +12,7 @@ class Plateau
     puts '+' + '-' * @size.first + '+'
     puts Array.new(@size.last) { |y|
       '|' + Array.new(@size.first) { |x|
-        pos.coords == [x, y] ? pos.orientation : ' '
+        pos.coords == [x, @size.last - y] ? pos.orientation : ' '
       }.join('') + '|'
     }.join("\n")
     puts '+' + '-' * @size.first + '+'
