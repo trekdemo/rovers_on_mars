@@ -1,32 +1,19 @@
 require 'mission_simulator'
 
-FIXTURES_PATH = Pathname(File.expand_path('../fixtures', __FILE__))
-
-def load_mission_expectations(version)
-  File.read(FIXTURES_PATH.join("mission#{version}_expectation.txt"))
-end
-
-RSpec.describe MissionFileReader do
-  let(:mission_version) { '01' }
-  let(:mission_path) { FIXTURES_PATH.join("mission#{mission_version}.txt") }
-  subject { described_class.new(mission_path) }
-
-  describe '#rover_data' do
-    it 'should parse the rover data from the file' do
-      expect(subject.rover_data).to eq([
-        [[1,2,'N'], "LMLMLMLMM"],
-        [[3,3,'E'], "MMRMMRMRRM"],
-      ])
-    end
-  end
-end
-
 RSpec.describe MissionSimulator do
+  def load_mission_expectations(version)
+    File.read(FIXTURES_PATH.join("mission#{version}_expectation.txt"))
+  end
+
   let(:mission_version) { '01' }
   let(:mission_path) { FIXTURES_PATH.join("mission#{mission_version}.txt") }
   let(:mission_expectation) { load_mission_expectations(mission_version) }
 
   subject { described_class.new(mission_path) }
+
+  describe '#rovers' do
+    specify { expect(subject.rovers.count).to eq(2) }
+  end
 
   describe '#evaluate_destinations' do
     it 'should return expected formatted output' do
